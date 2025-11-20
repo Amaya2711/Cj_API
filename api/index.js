@@ -5,11 +5,13 @@ app.use(express.json());
 
 // SELECT endpoint
 app.post('/api/select', async (req, res) => {
-  const { table, where } = req.body;
+  const { sql: customSql } = req.body;
+  if (!customSql) {
+    return res.status(400).json({ error: "El parámetro 'sql' es requerido." });
+  }
   try {
     await sql.connect(config);
-    const query = `SELECT * FROM ${table} ${where ? 'WHERE ' + where : ''}`;
-    const result = await sql.query(query);
+    const result = await sql.query(customSql);
     res.json(result.recordset);
   } catch (err) {
     res.status(500).json({ error: err.message });

@@ -1,8 +1,17 @@
 const sql = require('mssql');
 
+let server = process.env.DB_SERVER || '161.132.48.29';
+let port = process.env.DB_PORT ? parseInt(process.env.DB_PORT) : undefined;
+if (server.includes(',')) {
+  const parts = server.split(',');
+  server = parts[0];
+  port = parseInt(parts[1]);
+}
+if (!port) port = 8966;
+
 const config = {
-  server: process.env.DB_SERVER || '161.132.48.29',
-  port: parseInt((process.env.DB_SERVER || '161.132.48.29,8966').split(',')[1] || '8966'),
+  server,
+  port,
   database: process.env.DB_DATABASE || 'JC_Db',
   user: process.env.DB_USER || 'sa',
   password: process.env.DB_PASSWORD || '@3IS0@ejwU4A7VOHba990',
