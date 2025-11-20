@@ -1,0 +1,51 @@
+const express = require('express');
+const { sql, config } = require('../db/connection');
+const app = express();
+app.use(express.json());
+
+// SELECT endpoint
+app.post('/api/select', async (req, res) => {
+  const { table, where } = req.body;
+  try {
+    await sql.connect(config);
+    const query = `SELECT * FROM ${table} ${where ? 'WHERE ' + where : ''}`;
+    const result = await sql.query(query);
+    res.json(result.recordset);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// INSERT endpoint
+app.post('/api/insert', async (req, res) => {
+  const { table, data } = req.body;
+  try {
+    await sql.connect(config);
+    const columns = Object.keys(data).join(',');
+    const values = Object.values(data).map(v => `'${v}'`).join(',');
+    const query = `INSERT INTO ${table} (${columns}) VALUES (${values})`;
+    await sql.query(query);
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// UPDATE endpoint
+app.post('/api/update', async (req, res) => {
+  const { table, data, where } = req.body;
+  try {
+    await sql.connect(config);
+    const set = Object.entries(data).map(([k, v]) => `${k}='${v}'`).join(',');
+    const query = `UPDATE ${table} SET ${set} ${where ? 'WHERE ' + where : ''}`;
+    await sql.query(query);
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`API running on port ${port}`);
+});
