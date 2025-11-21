@@ -30,33 +30,32 @@ DB_TRUST_CERT=true
 DB_TIMEOUT=30
 ```
 
+
 ## Uso
-Realiza peticiones HTTP a los endpoints:
+Puedes enviar una sentencia SQL personalizada en los endpoints:
 
 - `/api/select` (POST):
 	```json
 	{
-		"table": "NombreTabla",
-		"where": "columna = 'valor'" // opcional
+		"sql": "SELECT * FROM constante WHERE campo = 'estado_log'"
 	}
 	```
 
 - `/api/insert` (POST):
 	```json
 	{
-		"table": "NombreTabla",
-		"data": { "columna1": "valor1", "columna2": "valor2" }
+		"sql": "INSERT INTO constante VALUES ('PE01','MAESTRO','ESTADO_LOG',55,'PRUEBA','PRUEBA API','','')"
 	}
 	```
 
 - `/api/update` (POST):
 	```json
 	{
-		"table": "NombreTabla",
-		"data": { "columna1": "nuevoValor" },
-		"where": "columna2 = 'valor2'" // opcional
+		"sql": "UPDATE constante SET ValorIni = 'NUEVO' WHERE Correlativo = 55"
 	}
 	```
+
+También puedes seguir usando los parámetros estándar `table`, `data`, `where` si lo prefieres.
 
 ### Ejemplo con PowerShell
 ```powershell

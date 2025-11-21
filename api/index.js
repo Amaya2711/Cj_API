@@ -20,12 +20,17 @@ app.post('/api/select', async (req, res) => {
 
 // INSERT endpoint
 app.post('/api/insert', async (req, res) => {
-  const { table, data } = req.body;
+  const { sql: customSql, table, data } = req.body;
   try {
     await sql.connect(config);
-    const columns = Object.keys(data).join(',');
-    const values = Object.values(data).map(v => `'${v}'`).join(',');
-    const query = `INSERT INTO ${table} (${columns}) VALUES (${values})`;
+    let query;
+    if (customSql) {
+      query = customSql;
+    } else {
+      const columns = Object.keys(data).join(',');
+      const values = Object.values(data).map(v => `'${v}'`).join(',');
+      query = `INSERT INTO ${table} (${columns}) VALUES (${values})`;
+    }
     await sql.query(query);
     res.json({ success: true });
   } catch (err) {
@@ -35,11 +40,16 @@ app.post('/api/insert', async (req, res) => {
 
 // UPDATE endpoint
 app.post('/api/update', async (req, res) => {
-  const { table, data, where } = req.body;
+  const { sql: customSql, table, data, where } = req.body;
   try {
     await sql.connect(config);
-    const set = Object.entries(data).map(([k, v]) => `${k}='${v}'`).join(',');
-    const query = `UPDATE ${table} SET ${set} ${where ? 'WHERE ' + where : ''}`;
+    let query;
+    if (customSql) {
+      query = customSql;
+    } else {
+      const set = Object.entries(data).map(([k, v]) => `${k}='${v}'`).join(',');
+      query = `UPDATE ${table} SET ${set} ${where ? 'WHERE ' + where : ''}`;
+    }
     await sql.query(query);
     res.json({ success: true });
   } catch (err) {
