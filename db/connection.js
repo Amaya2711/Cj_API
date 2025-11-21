@@ -12,9 +12,9 @@ if (!port) port = 1433;
 const config = {
   server,
   port,
-  database: process.env.DB_DATABASE || 'JC_Db',
+  database: process.env.DB_DATABASE || 'n8n_produccion',
   user: process.env.DB_USER || 'sa',
-  password: process.env.DB_PASSWORD || '@3IS0@ejwU4A7VOHba990',
+  password: process.env.DB_PASSWORD || '7@1l6DknPRBHhtJ6eg32xss',
   options: {
     trustServerCertificate: process.env.DB_TRUST_CERT === 'true' || true
   },
