@@ -13,7 +13,7 @@ const config = {
   server,
   port,
   database: process.env.DB_DATABASE || 'n8n_produccion',
-  user: process.env.DB_USER || 'sa',
+  user: process.env.DB_USER || 'SA',
   password: process.env.DB_PASSWORD || '7@1l6DknPRBHhtJ6eg32xss',
   options: {
     trustServerCertificate: process.env.DB_TRUST_CERT === 'true' || true
