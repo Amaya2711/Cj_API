@@ -1,6 +1,6 @@
 const sql = require('mssql');
 
-let server = process.env.DB_SERVER || '161.132.48.29';
+let server = process.env.DB_SERVER || 'cj-cpa86x2pp-amaya2711s-projects.vercel.app';
 let port = process.env.DB_PORT ? parseInt(process.env.DB_PORT) : undefined;
 if (server.includes(',')) {
   const parts = server.split(',');
