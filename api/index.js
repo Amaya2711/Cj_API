@@ -57,7 +57,4 @@ app.post('/api/update', async (req, res) => {
   }
 });
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`API running on port ${port}`);
-});
+module.exports = app;
