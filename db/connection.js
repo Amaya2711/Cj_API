@@ -7,7 +7,7 @@ if (server.includes(',')) {
   server = parts[0];
   port = parseInt(parts[1]);
 }
-if (!port) port = 8966;
+if (!port) port = 1433;
 
 const config = {
   server,
