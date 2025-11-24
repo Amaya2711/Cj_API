@@ -1,3 +1,19 @@
+## Ejemplo: Ejecutar un Stored Procedure
+
+Puedes llamar un stored procedure con parámetros usando el endpoint:
+
+- `/api/stored-procedure` (POST):
+		```json
+		{
+			"procedure": "NombreDelStoreProcedure",
+			"params": {
+				"param1": "valor1",
+				"param2": 123
+			}
+		}
+		```
+
+Esto ejecutará el procedimiento almacenado con los parámetros enviados y devolverá el resultado.
 # Cj_API
 
 API REST en Node.js + Express para integración con SQL Server.
