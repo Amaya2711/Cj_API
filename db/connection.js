@@ -16,7 +16,7 @@ const config = {
   user: process.env.DB_USER || 'SA',
   password: process.env.DB_PASSWORD || '7@1l6DknPRBHhtJ6eg32xss',
   options: {
-    trustServerCertificate: process.env.DB_TRUST_CERT === 'true' || true
+    trustServerCertificate: process.env.DB_TRUST_CERT === 'false' || true
   },
   pool: {
     min: parseInt(process.env.DB_POOL_MIN || '0'),
