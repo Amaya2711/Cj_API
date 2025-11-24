@@ -1,32 +1,26 @@
 const sql = require('mssql');
 
-let server = process.env.DB_SERVER || 'cj-cpa86x2pp-amaya2711s-projects.vercel.app';
-let port = process.env.DB_PORT ? parseInt(process.env.DB_PORT) : undefined;
-if (server.includes(',')) {
-  const parts = server.split(',');
-  server = parts[0];
-  port = parseInt(parts[1]);
-}
-if (!port) port = 1433;
-
 const config = {
-  server,
-  port,
-  database: process.env.DB_DATABASE || 'n8n_produccion',
-  user: process.env.DB_USER || 'SA',
-  password: process.env.DB_PASSWORD || '7@1l6DknPRBHhtJ6eg32xssAS',
+  server: process.env.DB_SERVER,                      // solo la IP o hostname
+  port: parseInt(process.env.DB_PORT || '1433', 10),  // puerto separado
+  database: process.env.DB_DATABASE,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
   options: {
-    trustServerCertificate: process.env.DB_TRUST_CERT === 'false' || true
+    encrypt: false,                // o true si usas TLS
+    trustServerCertificate: true,  // para evitar problemas de certificado
   },
   pool: {
-    min: parseInt(process.env.DB_POOL_MIN || '0'),
-    max: parseInt(process.env.DB_POOL_MAX || '100'),
-    idleTimeoutMillis: parseInt(process.env.DB_TIMEOUT || '30000')
+    min: parseInt(process.env.DB_POOL_MIN || '0', 10),
+    max: parseInt(process.env.DB_POOL_MAX || '10', 10),
+    idleTimeoutMillis: parseInt(process.env.DB_TIMEOUT || '30000', 10),
   },
-  connectionTimeout: parseInt(process.env.DB_TIMEOUT || '30000')
+  connectionTimeout: parseInt(process.env.DB_TIMEOUT || '30000', 10),
+  requestTimeout: parseInt(process.env.DB_TIMEOUT || '30000', 10),
 };
 
 module.exports = {
   sql,
-  config
+  config,
 };
+

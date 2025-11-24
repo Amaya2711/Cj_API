@@ -20,10 +20,10 @@ API REST en Node.js + Express para integración con SQL Server.
 
 ## Variables de entorno sugeridas
 ```
-DB_SERVER=161.132.48.29,8966
+DB_SERVER=161.132.4.67,1433
 DB_DATABASE=JC_Db
 DB_USER=sa
-DB_PASSWORD=@3IS0@ejwU4A7VOHba990
+DB_PASSWORD=7@1l6DknPRBHhtJ6eg32xss
 DB_POOL_MIN=0
 DB_POOL_MAX=100
 DB_TRUST_CERT=true
@@ -72,10 +72,10 @@ Invoke-RestMethod -Uri "http://localhost:3000/api/select" -Method Post -Body '{"
 ## Configuración de variables de entorno en Vercel
 En el dashboard de Vercel, ve a tu proyecto > Settings > Environment Variables y agrega:
 
-- `DB_SERVER=161.132.48.29,8966`
+- `DB_SERVER=161.132.4.67,1433`
 - `DB_DATABASE=JC_Db`
 - `DB_USER=sa`
-- `DB_PASSWORD=@3IS0@ejwU4A7VOHba990`
+- `DB_PASSWORD=7@1l6DknPRBHhtJ6eg32xss`
 - `DB_POOL_MIN=0`
 - `DB_POOL_MAX=100`
 - `DB_TRUST_CERT=true`
