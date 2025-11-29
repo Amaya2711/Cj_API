@@ -1,3 +1,24 @@
+// STORED PROCEDURE endpoint (acepta 'params' o 'parameters')
+app.post('/api/stored-procedure', async (req, res) => {
+  const { procedure, params, parameters } = req.body;
+  const inputParams = params || parameters;
+  if (!procedure) {
+    return res.status(400).json({ error: "El parámetro 'procedure' es requerido." });
+  }
+  try {
+    await sql.connect(config);
+    const request = new sql.Request();
+    if (inputParams && typeof inputParams === 'object') {
+      for (const [key, value] of Object.entries(inputParams)) {
+        request.input(key, value);
+      }
+    }
+    const result = await request.execute(procedure);
+    res.json(result.recordset || { success: true });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 const express = require('express');
 const { sql, config } = require('../db/connection');
 const app = express();
