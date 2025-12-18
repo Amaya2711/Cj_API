@@ -1,3 +1,8 @@
+// Manejo global de errores para capturar cualquier excepción no controlada
+app.use((err, req, res, next) => {
+  console.error('Unhandled error:', err);
+  res.status(500).json({ error: 'Internal server error', detail: err.message });
+});
 // ...existing code...
 const express = require('express');
 const { sql, config } = require('../db/connection');
